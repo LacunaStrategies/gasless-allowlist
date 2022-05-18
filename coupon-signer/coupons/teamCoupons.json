@@ -1,0 +1,34 @@
+{
+  "0xdc476226b73fece70b191fff9fef60eb0f3cadc6": {
+    "qty": 10,
+    "coupon": {
+      "r": "0xce0cf499fc3ea1aae1a4ee125dac9443ec0fc653ef4209bfc2a74b7a57ba3183",
+      "s": "0x109e6880db6baa5b0353fa04c3700f131fb782989f26d0d0d3d6733d38a2167d",
+      "v": 28
+    }
+  },
+  "0x1f8ad94c22fbe7e1189999db54321ef4a01ae65d": {
+    "qty": 5,
+    "coupon": {
+      "r": "0x019d1cec7da4be18ec5180f1721c1a6dec0227913448cc30a81578a9a0ba9a38",
+      "s": "0x3705ab172a4aa231cebb0c6103d773e0b2ab779e20f0dd3e70008f3a5547829e",
+      "v": 27
+    }
+  },
+  "0x4b5f3bab28fb8500e9dfff67c2a3a4d6f8003d0e": {
+    "qty": 5,
+    "coupon": {
+      "r": "0x146e308b4b6386ddaa26ee360ea45189a8c17bd8ffa7f7787583ff94c3c32f8b",
+      "s": "0x12f804e3c49ffd6adbc0ea7a25ca5ade9f7ca163b92ac12ad9c7f32bf9cfb1d5",
+      "v": 27
+    }
+  },
+  "0xfb5fb18b4eae004c95f664bcfc5d491567027109": {
+    "qty": 3,
+    "coupon": {
+      "r": "0xccfb0941135b617dede27564585e769aa39f75025586f78926173d9afe48690e",
+      "s": "0x5ea7583bb0b7aa7761b090a86c976e1ee678c9b208219e8f9cd17021c9e97de4",
+      "v": 28
+    }
+  }
+}
