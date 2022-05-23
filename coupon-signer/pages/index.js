@@ -19,10 +19,10 @@ export default function Home() {
       <h1 className="text-8xl font-bold uppercase text-center">Coupon Signer</h1>
       <button 
         type="button"
-        onClick={()=>retrieveCoupons("whitelist")}
+        onClick={()=>retrieveCoupons("presale")}
         className="text-white inline-block mt-8 bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
       >
-        Retrieve Whitelist Coupons
+        Retrieve Presale Coupons
       </button>
       <button 
         type="button"
@@ -31,9 +31,7 @@ export default function Home() {
       >
         Retrieve Team Coupons
       </button>
-      <div className="mt-20 text-center">
-        { message !== '' && message}
-      </div>
+      <div className="mt-20 text-center"></div>
     </div>
   )
 }

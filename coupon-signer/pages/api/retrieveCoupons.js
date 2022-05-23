@@ -10,8 +10,8 @@ export default function handler(req, res) {
     res.status(400).json({message:'Error: Invalid Request - "type" is a required parameter'})
     return
   }
-  if (type !== "whitelist" && type !== "team"){
-    res.status(400).json({message:'Error: Invalid Request - valid "type" values are "whitelist" and "team"'})
+  if (type !== "presale" && type !== "team"){
+    res.status(400).json({message:'Error: Invalid Request - valid "type" values are "presale" and "team"'})
     return
   }  
   
@@ -23,9 +23,10 @@ export default function handler(req, res) {
    * Private key generated from ethers.Wallet.createRandom() - stored as a non-public environment variable
    * @notice The address used in your Smart Contract to verify the coupon must be the public address associated with this key  
    */
-  const signerPvtKeyString = process.env.COUPON_SIGNING_KEY || "";
-  const signerPvtKey = Buffer.from(signerPvtKeyString, "hex");
-
+  const signerPvtKeyString = process.env.COUPON_SIGNING_KEY || ""
+  const signerPvtKey = Buffer.from(signerPvtKeyString, "hex")
+  console.log(signerPvtKeyString)
+  
   /**
    * * addressList
    * The JSON objects of addresses and their associated allotted mints
@@ -34,8 +35,8 @@ export default function handler(req, res) {
    */
   let addressList
   switch(type) {
-    case "whitelist":
-        addressList = require('/lib/whitelistAddressList.json')
+    case "presale":
+        addressList = require('/lib/presaleAddressList.json')
         break;
     case "team":
         addressList = require('/lib/teamAddressList.json')
@@ -44,7 +45,7 @@ export default function handler(req, res) {
   
   // Enumerated value; this should match the struct variable in your Smart Contract
   const CouponTypeEnum = {
-    Whitelist: 0,
+    Presale: 0,
     Team: 1
   }
 
@@ -99,7 +100,7 @@ export default function handler(req, res) {
       // Iterate through addresses list
       for ( const [address, qty] of Object.entries(addressList) ) {
         
-        // Verify that the address is a valid address (many whitelist/allowlist signups include invalid addresses)
+        // Verify that the address is a valid address (many presale/allowlist signups include invalid addresses)
         if (ethers.utils.isAddress(address)){
 
           // Set userAddress to a Checksum Address of the address
@@ -111,8 +112,8 @@ export default function handler(req, res) {
           // Set our Coupon Type
           let couponType
           switch(type) {
-            case "whitelist":
-                couponType = CouponTypeEnum["Whitelist"]
+            case "presale":
+                couponType = CouponTypeEnum["Presale"]
                 break;
             case "team":
                 couponType = CouponTypeEnum["Team"]
@@ -126,6 +127,8 @@ export default function handler(req, res) {
           );
         
           // Call our helper function to sign our hashed buffer and create the coupon
+          
+          
           const coupon = createCoupon(hashBuffer, signerPvtKey);
 
           // Add the wallet address with allotted mints and coupon to our coupons object
@@ -142,7 +145,7 @@ export default function handler(req, res) {
       // Convert our coupons object to a readable string
       const writeData = JSON.stringify(coupons, null, 2);
 
-      // Write our coupons to a new whitelistCoupons.json file
+      // Write our coupons to a new presaleCoupons.json file
       fs.writeFileSync(`coupons/${type}Coupons.json`, writeData);
 
     } catch (err) {
