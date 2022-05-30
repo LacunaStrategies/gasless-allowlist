@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react'
-import { activeChainId, activePhase, activeNetwork } from './config';
 import { ethers } from 'ethers'
-import Connect from './components/Connect';
-import ConnectedAddress from './components/ConnectedAddress';
-import Heading from './components/Heading';
-import MintTeam from './components/MintTeam';
-import MintPresale from './components/MintPresale';
-import MintLocked from './components/MintLocked';
+import Connect from './components/Connect'
+import ConnectedAddress from './components/ConnectedAddress'
+import Heading from './components/Heading'
+import MintTeam from './components/MintTeam'
+import MintPresale from './components/MintPresale'
+import MintLocked from './components/MintLocked'
 
 import NFT from './utils/abi.json'
-import { contractAddress } from './config';
+import { contractAddress, activePhase, activeNetwork } from './config'
 
 function App() {
 
@@ -35,8 +34,8 @@ function App() {
       });
 
       // Add listener for Chain changes
-      ethereum.on("chainChanged", (networkId) => {
-        if (networkId === activeChainId) {
+      ethereum.on("chainChanged", (chainId) => {
+        if (chainId === activeNetwork.chainId) {
           window.location.reload();
         } else {
           setCorrectNetwork(false);
@@ -55,11 +54,10 @@ function App() {
     // Get current chain ID
     let chainId = await ethereum.request({ method: 'eth_chainId' })
 
-    // Set state variable based on chain ID matching our activeChainId variable
-    if (chainId !== activeChainId) {
-      setCorrectNetwork(false)
-    } else {
+    if (chainId === activeNetwork.chainId) {
       setCorrectNetwork(true)
+    } else {
+      setCorrectNetwork(false)
     }
   }
 
@@ -115,7 +113,7 @@ function App() {
 
   // If not on the correct network, return only the message notifying user to switch networks
   if (!correctNetwork)
-    return <div className="text-white text-center text-xl">{`You are not corrected to the correct network!  Please switch to the ${activeNetwork}`}</div>
+    return <div className="text-white text-center text-xl">{`You are not corrected to the correct network!  Please switch to the ${activeNetwork.name}`}</div>
 
   return (
     <div className="App text-center py-14 text-white">

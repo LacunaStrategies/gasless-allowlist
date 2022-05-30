@@ -3,7 +3,7 @@ import { ethers } from 'ethers'
 import Quantity from './Quantity'
 import presaleCoupons from '../utils/presaleCoupons.json'
 import NFT from '../utils/abi.json'
-import { contractAddress, PRESALE_MINT_PRICE } from '../config'
+import { contractAddress, presalePriceInWei } from '../config'
 
 
 const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
@@ -45,14 +45,12 @@ const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
                     signer
                 )
 
-                // Set the amount to be paid based on mintQty
-                let price = 
-                const totalPrice = mintQty * price
-                const value = ethers.utils.parseEther(String(totalPrice))
+                const value = String(presalePriceInWei * mintQty)
+                // const totalGasLimit = String(gasLimit * qty) // optional
 
-                // Set additional options
                 const options = {
                     value,
+                    // gasLimit: totalGasLimit,
                 }
 
                 // Initiate mint transaction
