@@ -3,8 +3,7 @@ import { ethers } from 'ethers'
 import Quantity from './Quantity'
 import presaleCoupons from '../utils/presaleCoupons.json'
 import NFT from '../utils/abi.json'
-import { contractAddress } from '../config'
-
+import { contractAddress, presalePriceInWei, gasLimit } from '../config'
 
 const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
 
