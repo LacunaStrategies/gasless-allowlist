@@ -8,7 +8,7 @@ export default function Home() {
     fetch(`/api/retrieveCoupons?type=${type}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.message)
+        alert(data.message)
         setMessage(data.message)
       })
     
