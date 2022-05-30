@@ -3,7 +3,7 @@ import { ethers } from 'ethers'
 import Quantity from './Quantity'
 import presaleCoupons from '../utils/presaleCoupons.json'
 import NFT from '../utils/abi.json'
-import { contractAddress, presalePriceInWei } from '../config'
+import { contractAddress, presalePriceInWei, gasLimitPerNft } from '../config'
 
 
 const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
@@ -45,12 +45,13 @@ const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
                     signer
                 )
 
+                // Set option variables
                 const value = String(presalePriceInWei * mintQty)
-                // const totalGasLimit = String(gasLimit * qty) // optional
+                // const gasLimit = String(gasLimitPerNft * mintQty) // optional
 
                 const options = {
                     value,
-                    // gasLimit: totalGasLimit,
+                    // gasLimit, // optional
                 }
 
                 // Initiate mint transaction
