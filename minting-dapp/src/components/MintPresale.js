@@ -34,7 +34,15 @@ const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
                     signer
                 )
 
-                let nftTx = await nftContract.mintPresale(mintQty, allottedPresaleMints, coupon)
+                const value = String(presalePriceInWei * mintQty)
+                // const totalGasLimit = String(gasLimit * qty) // optional
+
+                const options = {
+                    value,
+                    // gasLimit: totalGasLimit,
+                }
+
+                let nftTx = await nftContract.mintPresale(mintQty, allottedPresaleMints, coupon, options)
 
                 console.log('Minting....', nftTx.hash)
 
