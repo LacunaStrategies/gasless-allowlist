@@ -3,30 +3,40 @@ import { ethers } from 'ethers'
 import Quantity from './Quantity'
 import presaleCoupons from '../utils/presaleCoupons.json'
 import NFT from '../utils/abi.json'
-import { contractAddress } from '../config'
+import { contractAddress, PRESALE_MINT_PRICE } from '../config'
 
 
 const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
 
+    // Set state variables
     const [mintQty, setMintQty] = useState(0)
     const [minting, setMinting] = useState(false)
 
+    // If account does not have a valid coupon, return only a notification message
     if (presaleCoupons[currentAccount] === undefined)
         return 'No valid presale mint coupons found'
 
+    // Retrieve allotted mints from presale coupon data
     const allottedPresaleMints  = presaleCoupons[currentAccount].qty
+    // Set available mints based on allotted mints minus total presale mints
     const availableTeamMints    = totalMinted !== undefined ? allottedPresaleMints - parseInt(totalMinted.presale) : 0
+    // Retrieve coupon from presale coupon data
     const coupon                = presaleCoupons[currentAccount].coupon
 
-    console.log(coupon)
-
+    /**
+     * * Mint NFTs
+     * @dev Mint function for the mintPresale method from our smart contract
+     * @notice The mintPresale function accepts 3 parameters: (mintQt, allotted, coupon) and is payable
+     */
     const mintNfts = async () => {
+        // Update mint button to disabled and "minting" text
         setMinting(true)
 
         try {
             const { ethereum } = window
             if (ethereum) {
 
+                // Connect to contract
                 const provider = new ethers.providers.Web3Provider(ethereum)
                 const signer = provider.getSigner()
                 const nftContract = new ethers.Contract(
@@ -35,19 +45,30 @@ const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
                     signer
                 )
 
-                let nftTx = await nftContract.mintPresale(mintQty, allottedPresaleMints, coupon)
+                // Set the amount to be paid based on mintQty
+                let price = 
+                const totalPrice = mintQty * price
+                const value = ethers.utils.parseEther(String(totalPrice))
 
+                // Set additional options
+                const options = {
+                    value,
+                }
+
+                // Initiate mint transaction
+                let nftTx = await nftContract.mintPresale(mintQty, allottedPresaleMints, coupon, options)
+
+                // Log the transaction hash (preferably, set this to a variable and display this to the user)
                 console.log('Minting....', nftTx.hash)
 
+                // Assign transaction details to a variable (unused, but could be used to display details to user)
                 let tx = await nftTx.wait()
-
-                setMinting(false)
-
                 console.log('Minted!', tx)
 
-                let event = tx.events[0]
-                console.log(event)
-                
+                // Re-enable mint button
+                setMinting(false)
+
+                // Updated totalMinted state variable
                 nftContract.addressToMinted(currentAccount)
                 .then((data) => {
                   let totalMints = {
@@ -58,11 +79,11 @@ const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
                 })
             } else {
                 console.error("Ethereum object doesn't exist!")
-                setMinting(0)
+                setMinting(false)
             }
         } catch (err) {
             console.error(err)
-            setMinting(0)
+            setMinting(false)
         }
     }
 

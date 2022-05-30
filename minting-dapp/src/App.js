@@ -13,6 +13,7 @@ import { contractAddress } from './config';
 
 function App() {
 
+  // State variables
   const [correctNetwork, setCorrectNetwork] = useState(false)
   const [currentAccount, setCurrentAccount] = useState('')
   const [totalMinted, setTotalMinted] = useState()
@@ -45,13 +46,16 @@ function App() {
   }, []);
 
   /**
- * * Check Correct Network
- * @dev Verify that current chain ID is Correct
- */
+   * * Check Correct Network
+   * @dev Verify that current chain ID is Correct
+   */
   const checkCorrectNetwork = async () => {
     const { ethereum } = window
+
+    // Get current chain ID
     let chainId = await ethereum.request({ method: 'eth_chainId' })
 
+    // Set state variable based on chain ID matching our activeChainId variable
     if (chainId !== activeChainId) {
       setCorrectNetwork(false)
     } else {
@@ -59,6 +63,7 @@ function App() {
     }
   }
 
+  // Set totalMinted state variable for the current account
   useEffect(() => {
     if (currentAccount !== '') {
       try {
@@ -81,14 +86,13 @@ function App() {
               setTotalMinted(totalMints)
             })
         }
-        console.log('Account Changed')
       } catch (error) {
         console.error(error);
       }
     }
   }, [currentAccount])
 
-  // Set mint component to display, based on active phase
+  // Set the mint component to display, based on active phase
   let mintComponent
   switch (activePhase) {
     case "presale":
@@ -109,7 +113,7 @@ function App() {
       mintComponent = <MintLocked />
   }
 
-  // If not on the correct network, prevent any actions from being taken
+  // If not on the correct network, return only the message notifying user to switch networks
   if (!correctNetwork)
     return <div className="text-white text-center text-xl">{`You are not corrected to the correct network!  Please switch to the ${activeNetwork}`}</div>
 
@@ -123,7 +127,7 @@ function App() {
       {/* Tell them a little bit about the page */}
       <Heading />
 
-      {/* Display UI based on connection status and mint phase */}
+      {/* Display UI (connect or mint) based on connection status and mint phase */}
       {
         currentAccount === '' ? (
           <Connect

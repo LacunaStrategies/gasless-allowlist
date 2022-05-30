@@ -5,26 +5,37 @@ import teamCoupons from '../utils/teamCoupons.json'
 import NFT from '../utils/abi.json'
 import { contractAddress } from '../config'
 
-
 const MintTeam = ({ currentAccount, totalMinted, setTotalMinted }) => {
 
+    // Set state variables
     const [mintQty, setMintQty] = useState(0)
     const [minting, setMinting] = useState(false)
 
+    // If account does not have a valid coupon, return only a notification message
     if (teamCoupons[currentAccount] === undefined)
         return 'No valid team mint coupons found'
 
+    // Retrieve allotted mints from team coupon data
     const allottedTeamMints     = teamCoupons[currentAccount].qty
+    // Set available mints based on allotted mints minus total team mints
     const availableTeamMints    = totalMinted !== undefined ? allottedTeamMints - parseInt(totalMinted.team) : 0
+    // Retrieve coupon from team coupon data
     const coupon                = teamCoupons[currentAccount].coupon
 
+    /**
+     * * Mint NFTs
+     * @dev Mint function for the mintTeam method from our smart contract
+     * @notice The mintTeam function accepts 3 parameters: (mintQt, allotted, coupon) and is non-payable
+     */
     const mintNfts = async () => {
+        // Update mint button to disabled and "minting" text
         setMinting(true)
 
         try {
             const { ethereum } = window
             if (ethereum) {
 
+                // Connect to contract
                 const provider = new ethers.providers.Web3Provider(ethereum)
                 const signer = provider.getSigner()
                 const nftContract = new ethers.Contract(
@@ -33,19 +44,20 @@ const MintTeam = ({ currentAccount, totalMinted, setTotalMinted }) => {
                     signer
                 )
 
+                // Initiate mint transaction
                 let nftTx = await nftContract.mintTeam(mintQty, allottedTeamMints, coupon)
 
+                // Log the transaction hash (preferably, set this to a variable and display this to the user)
                 console.log('Minting....', nftTx.hash)
-
+                
+                // Assign transaction details to a variable (unused, but could be used to display details to user)
                 let tx = await nftTx.wait()
-
-                setMinting(false)
-
                 console.log('Minted!', tx)
 
-                let event = tx.events[0]
-                console.log(event)
+                // Re-enable mint button
+                setMinting(false)
 
+                // Updated totalMinted state variable
                 nftContract.addressToMinted(currentAccount)
                 .then((data) => {
                   let totalMints = {
@@ -56,11 +68,11 @@ const MintTeam = ({ currentAccount, totalMinted, setTotalMinted }) => {
                 })
             } else {
                 console.error("Ethereum object doesn't exist!")
-                setMinting(0)
+                setMinting(false)
             }
         } catch (err) {
             console.error(err)
-            setMinting(0)
+            setMinting(false)
         }
     }
 
