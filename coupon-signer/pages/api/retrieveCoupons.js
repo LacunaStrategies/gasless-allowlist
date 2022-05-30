@@ -25,7 +25,6 @@ export default function handler(req, res) {
    */
   const signerPvtKeyString = process.env.COUPON_SIGNING_KEY || ""
   const signerPvtKey = Buffer.from(signerPvtKeyString, "hex")
-  console.log(signerPvtKeyString)
   
   /**
    * * addressList
