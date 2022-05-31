@@ -27,7 +27,7 @@ console.log('Public Address:', wallet.address)
 console.log('Private Key:', wallet.privateKey)
 ```
 
-There you have it. Simple. If you lose this key pair, simply repeat this process, regenerate your replacement coupons, and update the public address in your Smart Contract!
+There you have it. Simple. If you lose this key pair, simply repeat this process, re-generate your replacement coupons, and update the public address in your Smart Contract!
 
 # Smart Contract Validation
 The approach we will be using is a multi-use coupon - a coupon that is associated with a wallet address and includes a specified number of mints allocated to it. Unlike a single-use coupon, these coupons can be re-used by the holder until they have reached their maximum allocated mints. We will need a few pieces to properly track and validate our coupons: struct objects, an enum object, an address mapping variable, and a validation method. **Important:** If you choose to create a one-time-use coupon, it is highly recommended that you also include and check for a nonce in order to avoid the coupon being abused. One-time-use coupons will not be covered in this article.
