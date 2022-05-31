@@ -444,3 +444,9 @@ try {
 ```
 
 And there you have it!  A sample project, putting it all together, can be found in this GitHub repo. Again, for brevity's sake, this sample project is intended as a point of reference only and excludes a number of checks and methods that should be included for a fully production-ready project.
+
+Credit:
+
+- [Web3 Club "Create a gasless whitelist to NFT Mint Smart Contract | NFT Presale smart contract" [YouTube]](https://www.youtube.com/watch?v=YxSKg-GGPoI)
+- [Immunefi "Intro to Cryptography and Signatures in Ethereum" [Medium]](https://medium.com/immunefi/intro-to-cryptography-and-signatures-in-ethereum-2025b6a4a33d)
+- [Humans of NFT "Handling NFT Presale - Allowing Lists Off-Chain" [Medium]](https://medium.com/better-programming/handling-nft-presale-allow-lists-off-chain-47a3eb466e44)
