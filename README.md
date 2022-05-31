@@ -7,6 +7,8 @@ Twitter: [@LacunaStrats](https://twitter.com/LacunaStrats)
 # Overview
 The methods I suspect most individuals are aware of for handling a presale/allowlist are through an array (expensive!), a Merkle Tree (rigid and painful), or the EIP-712 standard. The steps below outline an alternative approach through the application of coupons / vouchers, using ECSign and ECRecover, which is completely gasless and extremely flexible. This article covers these steps in detail to set up your own gasless allowlist.
 
+Please note that this project is for example purposes only and should be used to supplement what you know and provide reference points for applying this sort of an approach. It excludes many things that a fully fleshed-out project should include and is not intended to be a turn-key solution.
+
 # Key Sections
 1. [Coupon Signer](#coupon-signer): Generating the private/public keys needed to sign our coupons
 2. [Smart Contract Validation](#smart-contract-validation): Setting up the structure and validation method in our Smart Contract for our coupons
