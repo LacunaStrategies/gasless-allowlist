@@ -10,7 +10,7 @@ The methods I suspect most individuals are aware of for handling a presale/allow
 # Key Sections
 1. [Coupon Signer](#coupon-signer): Generating the private/public keys needed to sign our coupons
 2. [Smart Contract Validation](#smart-contract-validation): Setting up the structure and validation method in our Smart Contract for our coupons
-3. [Generating Coupons](#generating-/-updating-coupons): Creating the functionality to generate and update our coupons off-chain
+3. [Generating Coupons](#generati-coupons): Creating the functionality to generate and update our coupons off-chain
 4. [dApp Coupon Mint](#dapp-coupon-mint): Setting up our dApp to include the coupons in our mint function.
 
 # Coupon Signer
@@ -125,7 +125,7 @@ function mintPresale(uint256 qty, uint256 allotted, Coupon memory coupon) extern
 ## Putting It All Together
 You can find an example Smart Contract utilizing the items outlined above in the source code of this repo.
 
-# Generating / Updating Coupons
+# Generating Coupons
 We're going to generate our coupons in a separate application, securely detached from everything else. You will need a couple of packages installed in your project folder for this.
 
 ## Set Up The Environment
