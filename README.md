@@ -123,7 +123,7 @@ function mintPresale(uint256 qty, uint256 allotted, Coupon memory coupon) extern
 ```
 
 ## Putting It All Together
-You can find an example Smart Contract utilizing the items outlined above here.
+You can find an example Smart Contract utilizing the items outlined above in the source code of this repo.
 
 # Generating / Updating Coupons
 We're going to generate our coupons in a separate application, securely detached from everything else. You will need a couple of packages installed in your project folder for this.
@@ -434,4 +434,4 @@ try {
 }
 ```
 
-And there you have it!  A sample project, putting it all together, can be found in this GitHub repo. For brevity's sake, this sample project is intended as a point of reference only and excludes a number of checks and methods that should be included for a fully production-ready contract. 
+And there you have it!  A sample project, putting it all together, can be found in this GitHub repo. For brevity's sake, this sample project is intended as a point of reference only and excludes a number of checks and methods that should be included for a fully production-ready contract.
