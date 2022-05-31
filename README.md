@@ -1,11 +1,7 @@
-# nft-project-boilerplate
-
- 
-
-Gasless Allowlist (ECRecover)  
+# Gasless Allowlist (ECRecover)  
 06.01.2022  
-─  
-Lacuna Strategies, LLC  
+
+**Lacuna Strategies, LLC**  
 Discord: @Rhaphie#3352  
 Twitter: [@LacunaStrats](https://twitter.com/LacunaStrats)  
 
@@ -13,8 +9,8 @@ Twitter: [@LacunaStrats](https://twitter.com/LacunaStrats)
 The methods I suspect most individuals are aware of for handling a presale/allowlist are through an array (expensive!), a Merkle Tree (rigid and painful), or the EIP-712 standard. This article outlines an alternative approach through the application of coupons / vouchers, using ECSign and ECRecover, which is completely gasless and extremely flexible. This article covers the steps to setting up a gasless coupon approach with potential use-case examples.
 
 # Key Sections
-1. Coupon Signer: Generating the private/public keys needed to sign our coupons
-2. Smart Contract Validation: Setting up the structure and validation method in your Smart Contract for our coupons
+1. [Coupon Signer](#coupon-signer): Generating the private/public keys needed to sign our coupons
+2. [Smart Contract Validation](smart-contract-validation): Setting up the structure and validation method in your Smart Contract for our coupons
 3. Generating / Updating Coupons: Creating the functionality to generate and update our coupons off-chain
 4. dApp Coupon Mint: Setting up our dApp to include the coupons in our mint function.
 
@@ -24,11 +20,13 @@ The first thing we are going to need for our coupons is a private/public key pai
 ## Generating The Random Wallet
 Open up a terminal (CMD) - we will need both Node and Ethers.js installed.  Inside of the terminal, run the following commands:
 
+```
 *node*
 const ethers = require('ethers')
 const wallet = ethers.Wallet.createRandom()
 console.log('Public Address:', wallet.address)
 console.log('Private Key:', wallet.privateKey)
+```
 
 There you have it. Simple. If you lose this key pair, simply repeat this process, regenerate your replacement coupons, and update the public address in your Smart Contract!
 
