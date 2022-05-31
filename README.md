@@ -2,12 +2,12 @@
 
  
 
-Gasless Allowlist (ECRecover)
-05.14.2022
-─
-Lacuna Strategies, LLC 
-Discord: @Rhaphie#3352
-Twitter: @LacunaStrats
+Gasless Allowlist (ECRecover)  
+06.01.2022  
+─  
+Lacuna Strategies, LLC  
+Discord: @Rhaphie#3352  
+Twitter: [@LacunaStrats](https://twitter.com/LacunaStrats)  
 
 # Overview
 The methods I suspect most individuals are aware of for handling a presale/allowlist are through an array (expensive!), a Merkle Tree (rigid and painful), or the EIP-712 standard. This article outlines an alternative approach through the application of coupons / vouchers, using ECSign and ECRecover, which is completely gasless and extremely flexible. This article covers the steps to setting up a gasless coupon approach with potential use-case examples.
