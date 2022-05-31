@@ -1,7 +1,6 @@
 # Gasless Allowlist (ECRecover)  
 06.01.2022  
 
-**Lacuna Strategies, LLC**  
 Discord: @Rhaphie#3352  
 Twitter: [@LacunaStrats](https://twitter.com/LacunaStrats)  
 
@@ -10,9 +9,9 @@ The methods I suspect most individuals are aware of for handling a presale/allow
 
 # Key Sections
 1. [Coupon Signer](#coupon-signer): Generating the private/public keys needed to sign our coupons
-2. [Smart Contract Validation](smart-contract-validation): Setting up the structure and validation method in your Smart Contract for our coupons
-3. Generating / Updating Coupons: Creating the functionality to generate and update our coupons off-chain
-4. dApp Coupon Mint: Setting up our dApp to include the coupons in our mint function.
+2. [Smart Contract Validation](#smart-contract-validation): Setting up the structure and validation method in your Smart Contract for our coupons
+3. [Generating / Updating Coupons](#generating-updating-coupons): Creating the functionality to generate and update our coupons off-chain
+4. [dApp Coupon Mint](#dapp-coulon-mint): Setting up our dApp to include the coupons in our mint function.
 
 # Coupon Signer
 The first thing we are going to need for our coupons is a private/public key pair from the wallet that will be used to sign  the coupons.  This key/value pair does not need to represent an existing wallet, nor does it need to be associated with anything else in your project. While we could use an existing wallet, I recommend the process of creating a random wallet. The private key generated from this wallet will be used to create the hashed signature, which will only return a valid response when checked against the public key in our validation method. A coupon signed by any other private key or a coupon that has been modified without being re-signed with the private key will fail validation. It is for this reason that our private key MUST remain properly secured and secreted away!  In the event the private key is lost or exposed, we will need to generate a new set of coupons with a new private key, updating the public key (used to validate the coupons) in our Smart Contract accordingly. Fortunately, this is easy to do…but try not to lose that key.
