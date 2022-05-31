@@ -3,6 +3,6 @@ export const activeNetwork = {
     name: "Rinkeby Network", // [Rinkeby Network, Mainnet Network]
     chainId: "0x4",  // [0x4, 0x1]
 }
-export const activePhase = "team" // [presale, team]
-export const presalePriceInWei = 700000000000000 // 0.007 ether
+export const activePhase = "presale" // [presale, team]
+export const presalePriceInEther = 0.0002
 export const gasLimitPerNft = 258000

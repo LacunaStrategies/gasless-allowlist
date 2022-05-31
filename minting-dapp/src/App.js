@@ -124,7 +124,7 @@ function App() {
 
       {/* Tell them a little bit about the page */}
       <Heading />
-
+      
       {/* Display UI (connect or mint) based on connection status and mint phase */}
       {
         currentAccount === '' ? (

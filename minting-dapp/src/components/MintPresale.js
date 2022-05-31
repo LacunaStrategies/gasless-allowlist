@@ -3,7 +3,7 @@ import { ethers } from 'ethers'
 import Quantity from './Quantity'
 import presaleCoupons from '../utils/presaleCoupons.json'
 import NFT from '../utils/abi.json'
-import { contractAddress, presalePriceInWei, gasLimitPerNft } from '../config'
+import { contractAddress, presalePriceInEther, /*gasLimitPerNft*/ } from '../config'
 
 
 const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
@@ -46,11 +46,11 @@ const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
                 )
 
                 // Set option variables
-                const value = String(presalePriceInWei * mintQty)
+                const totalPrice = String(presalePriceInEther * mintQty)
                 // const gasLimit = String(gasLimitPerNft * mintQty) // optional
 
                 const options = {
-                    value,
+                    value: ethers.utils.parseEther(totalPrice)
                     // gasLimit, // optional
                 }
 
@@ -63,6 +63,12 @@ const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
                 // Assign transaction details to a variable (unused, but could be used to display details to user)
                 let tx = await nftTx.wait()
                 console.log('Minted!', tx)
+
+                // Transaction events (unused, but could be used to display NFTs to user)
+                const events = tx.events // Token IDs are located at events[i].args.tokenId._hex
+                events.forEach((v,i) => {
+                    console.log(String(events[i].args.tokenId._hex))
+                })
 
                 // Re-enable mint button
                 setMinting(false)
@@ -88,7 +94,7 @@ const MintPresale = ({ currentAccount, totalMinted, setTotalMinted }) => {
 
     return (
         <>
-            <div className="mb-4">You have {availableTeamMints} Team Coupon mints remaining!</div>
+            <div className="mb-4">You have {availableTeamMints} Presale Coupon mints remaining!</div>
             <Quantity
                 mintQty={mintQty}
                 setMintQty={setMintQty}
