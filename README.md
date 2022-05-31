@@ -72,7 +72,7 @@ mapping(address => MintTypes) public addressToMinted;
 ```
 
 ## Validation Method
-We will be using a helper method to validate that the recovery of the coupon (using ecrecover, which you can read more about here) returns an address that matches the expected public address of our signing wallet. Tampering with an existing coupon or attempting to sign a coupon with a different wallet will produce an incorrect response and cause our validation to fail. Since we are including the wallet the coupon is assigned to, the coupon type, and the allotted amount in the signature of the coupon, we are able to securely prevent the coupon from being tampered with.
+We will be using a helper method to validate that the recovery of the coupon (using ecrecover, which you can read more about [here](https://medium.com/immunefi/intro-to-cryptography-and-signatures-in-ethereum-2025b6a4a33d#:~:text=elliptic%20curve%20cryptography.-,Digital%20Signatures,the%20hash%20of%20the%20message)) returns an address that matches the expected public address of our signing wallet. Tampering with an existing coupon or attempting to sign a coupon with a different wallet will produce an incorrect response and cause our validation to fail. Since we are including the wallet the coupon is assigned to, the coupon type, and the allotted amount in the signature of the coupon, we are able to securely prevent the coupon from being tampered with.
 
 ```
 /**
@@ -118,7 +118,7 @@ function mintPresale(uint256 qty, uint256 allotted, Coupon memory coupon) extern
     addressToMinted[_msgSender()]._presaleMintsByAddress += qty;
 
     // Mint Reserve Tokens
-    _mint(_msgSender(), qty, "", true);
+    _safeMint(_msgSender(), qty);
 }
 ```
 
@@ -226,11 +226,11 @@ Now let’s import the address lists, using a switch statement to import the cor
 let addressList
     switch(type) {
         case "presale":
-        addressList = require('/lib/presaleAddressList.json')
-        break;
-    case "team":
-        addressList = require('/lib/teamAddressList.json')
-        break;
+            addressList = require('/lib/presaleAddressList.json')
+            break;
+        case "team":
+            addressList = require('/lib/teamAddressList.json')
+            break;
 }
 ```
 
@@ -246,7 +246,9 @@ const CouponTypeEnum = {
 Next, we are going to create some helper functions that will be used inside of the generateCoupons() function we will be creating later.
 
 createCoupon() takes a hashed value and the buffered hex of the private key from our signing wallet and uses ethereumjs-util’s ecsign function to return an ECDSA signature
+
 generateHashBuffer() takes our types and value arrays and uses ethereumjs-util’s toBuffer and keccak256 functions to  return a buffered keccak256 hash
+
 serializeCoupon() takes our signed coupon and serializes it in our final “coupon” object
 
 ```
@@ -360,7 +362,7 @@ Assuming that we have a connected wallet - let’s say that you’ve assigned it
 Check for a valid coupon:
 
 ```
-const haspresaleCoupon = () => {
+const hasPresaleCoupon = () => {
     const couponExists = (presaleCoupons[currentAccount] === undefined) ? false : true
     return couponExists
   }
@@ -413,6 +415,7 @@ try {
       signer
     )
 
+    const totalPrice = presalePriceInEther * mintQty
     const options = {
       value: ethers.utils.parseEther(String(totalPrice))
     }
@@ -423,9 +426,11 @@ try {
     let tx = await nftTx.wait()
     console.log('Mined!', tx)
 
-    let event = tx.events[0]
-    console.log(event)
-
+    let events = tx.events
+    events.forEach((v,i) => {
+        console.log(String(event[i].args.tokenId._hex))
+    })
+    
   } else {
     console.error("Ethereum object doesn't exist!")
   }
