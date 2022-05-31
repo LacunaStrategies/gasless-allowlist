@@ -443,4 +443,4 @@ try {
 }
 ```
 
-And there you have it!  A sample project, putting it all together, can be found in this GitHub repo. For brevity's sake, this sample project is intended as a point of reference only and excludes a number of checks and methods that should be included for a fully production-ready contract.
+And there you have it!  A sample project, putting it all together, can be found in this GitHub repo. Again, for brevity's sake, this sample project is intended as a point of reference only and excludes a number of checks and methods that should be included for a fully production-ready project.
