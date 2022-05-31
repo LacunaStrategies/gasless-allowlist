@@ -10,7 +10,7 @@ The methods I suspect most individuals are aware of for handling a presale/allow
 # Key Sections
 1. [Coupon Signer](#coupon-signer): Generating the private/public keys needed to sign our coupons
 2. [Smart Contract Validation](#smart-contract-validation): Setting up the structure and validation method in our Smart Contract for our coupons
-3. [Generating / Updating Coupons](#generating-updating-/-coupons): Creating the functionality to generate and update our coupons off-chain
+3. [Generating Coupons](#generating-/-updating-coupons): Creating the functionality to generate and update our coupons off-chain
 4. [dApp Coupon Mint](#dapp-coupon-mint): Setting up our dApp to include the coupons in our mint function.
 
 # Coupon Signer
