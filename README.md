@@ -20,7 +20,7 @@ The first thing we are going to need for our coupons is a private/public key pai
 Open up a terminal (CMD) - we will need both Node and Ethers.js installed.  Inside of the terminal, run the following commands:
 
 ```
-*node*
+node
 const ethers = require('ethers')
 const wallet = ethers.Wallet.createRandom()
 console.log('Public Address:', wallet.address)
